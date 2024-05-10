@@ -1,0 +1,17 @@
+@keyframes slide {
+    0%{
+        top: 0;
+    }
+    100%{
+        top: -45%;
+    }
+}
+
+.slide{
+    animation: slide 15s infinite linear;
+}
+
+.active{
+    background-color: #3b82f6;
+    color: white;
+}
