@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { toast } from 'react-hot-toast'
+import Loading from "./Laoding"
+import { useSelector, useDispatch } from 'react-redux'
+import { startLoading, stopLoading } from "../redux/slices/userSlice"
 
 const Certificates = () => {
 
@@ -11,6 +14,10 @@ const Certificates = () => {
 			certificateDate: ""
 		}
 	])
+	const { loading } = useSelector((state) => {
+		return state.user
+	})
+	const dispatch = useDispatch()
 
 	const handleMoreDetails = () => {
 		const updatedArray = [...certificateDetails];
@@ -33,6 +40,7 @@ const Certificates = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		dispatch(startLoading())
 
 		try {
 			const res = await fetch(`${import.meta.env.VITE_URL}/api/set/certificates`, {
@@ -58,6 +66,7 @@ const Certificates = () => {
 		} catch (e) {
 			toast.error(e.message)
 		}
+		dispatch(stopLoading())
 	}
 
 	return (
@@ -78,7 +87,9 @@ const Certificates = () => {
 					})
 				}
 				<div className="flex justify-between items-center">
-					<button className="px-4 py-1 mt-4 w-fit bg-blue-500 text-lg text-white font-semibold rounded focus:outline-none" onClick={handleSubmit}>Submit</button>
+					<button className="px-4 py-1 mt-4 w-fit min-w-[90.3px] min-h-[36px] bg-blue-500 text-lg text-white font-semibold rounded focus:outline-none" onClick={handleSubmit}>{
+						loading ? (<Loading />) : ("Submit")
+					}</button>
 					<div onClick={handleMoreDetails}><IoIosAddCircleOutline size={25} className="mt-4" /></div>
 				</div>
 			</form>

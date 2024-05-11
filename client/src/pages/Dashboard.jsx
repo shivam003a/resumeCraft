@@ -8,6 +8,9 @@ import Projects from '../components/Projects'
 import Experience from '../components/Experience'
 import Certificates from '../components/Certificates'
 import { toast } from 'react-hot-toast'
+import Loading from "../components/Laoding"
+import { useSelector, useDispatch } from 'react-redux'
+import { startLoading, stopLoading } from "../redux/slices/userSlice"
 
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js"
 
@@ -16,6 +19,10 @@ const Dashboard = () => {
 
     const [currentPage, setCurrentPage] = useState("basic")
     const [pdfData, setPdfData] = useState(null)
+    const { loading } = useSelector((state) => {
+        return state.user
+    })
+    const dispatch = useDispatch()
 
     const components = {
         basic: <Basic />,
@@ -32,6 +39,7 @@ const Dashboard = () => {
     }
 
     const getPdf = async () => {
+        dispatch(startLoading())
         try {
             const res = await fetch(`${import.meta.env.VITE_URL}/api/resume/download`, {
                 method: "POST",
@@ -49,21 +57,22 @@ const Dashboard = () => {
             else {
                 throw new Error("error occured")
             }
-            
+
         } catch (e) {
             console.error('Error fetching PDF:', e);
         }
+        dispatch(stopLoading())
     }
 
     const downloadPdf = () => {
-        if(pdfData){
+        if (pdfData) {
             const url = window.URL.createObjectURL(new Blob([pdfData]))
             const link = document.createElement('a')
             link.href = url
             link.setAttribute('download', 'resume.pdf')
             link.click()
         }
-        else{
+        else {
             toast.error("pdf not availavble")
         }
     }
@@ -92,13 +101,17 @@ const Dashboard = () => {
             </div>
             <div className="w-full lg:w-[50%] flex flex-col gap-2 items-end overflow-hidden">
                 <button onClick={downloadPdf} className="px-4 py-2 bg-blue-500 w-fit rounded font-semibold text-white">Download</button>
-                <div className="w-full border">
-                    {
-                        pdfData && <Document file={pdfData} >
-                            <Page pageNumber={1} renderAnnotationLayer={false} renderTextLayer={false} />
-                        </Document>
-                    }
-                </div>
+                {
+                    loading ? (<Loading />) : (
+                        <div className="w-full border">
+                            {
+                                pdfData && <Document file={pdfData} >
+                                    <Page pageNumber={1} renderAnnotationLayer={false} renderTextLayer={false} />
+                                </Document>
+                            }
+                        </div>
+                    )
+                }
             </div>
         </div>
     )

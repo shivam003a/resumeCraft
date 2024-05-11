@@ -68,7 +68,7 @@ const Navbar = () => {
 			<div className="text-2xl tracking-widest font-semibold"><Link to="/">ResumeCraft</Link></div>
 			<div className="flex gap-2">
 				{logged && <Link to="/dashboard" className="px-3 py-[6px] bg-white text-black rounded hover:border hover:border-black">Dashboard</Link>}
-				{logged && <div className="px-3 py-[6px] bg-white text-black rounded hover:border hover:border-black" onClick={handleLogout}>Signout</div>}
+				{logged && <div className="px-3 py-[6px] bg-white text-black cursor-pointer rounded hover:border hover:border-black" onClick={handleLogout}>Signout</div>}
 				{!logged && <Link to="/signup" className="px-3 py-[6px] bg-white text-black rounded hover:border hover:border-black">SignUp</Link>}
 				{!logged && <Link to="/signin" className="px-3 py-[6px] bg-blue-500 text-white font-semibold rounded">SignIn</Link>}
 			</div>

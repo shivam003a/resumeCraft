@@ -15,3 +15,21 @@
     background-color: #3b82f6;
     color: white;
 }
+
+.loadingAnimation{
+    animation: loading 1s infinite linear both;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    border: 2px solid white;
+    border-top: 2px solid black
+}
+
+@keyframes loading {
+    0%{
+        transform: rotateZ(0deg);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
+}

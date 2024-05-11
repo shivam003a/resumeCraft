@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { startLoading, stopLoading } from '../redux/slices/userSlice'
+import Loading from '../components/Laoding'
 
 const Signup = () => {
 
@@ -11,6 +12,9 @@ const Signup = () => {
 		email: "",
 		password: "",
 		confirmPassword: ""
+	})
+	const { loading } = useSelector((state)=>{
+		return state.user
 	})
 	const dispatch = useDispatch();
 	const navigate = useNavigate()
@@ -70,7 +74,9 @@ const Signup = () => {
 						<input type='email' placeholder='email i.e johndoe@mail.com' className="px-4 py-2 border border-black rounded focus:outline-none" name="email" value={user.email} onChange={handleInput} />
 						<input type='password' placeholder='password' className="px-4 py-2 border border-black rounded focus:outline-none" name="password" value={user.password} onChange={handleInput} />
 						<input type='password' placeholder='confirm password' className="px-4 py-2 border border-black rounded focus:outline-none" name="confirmPassword" value={user.confirmPassword} onChange={handleInput} />
-						<button className="px-4 py-2 border rounded bg-blue-500 mt-6 w-fit text-white font-semibold" onClick={handleSubmit}>Signup Now!</button>
+						<button className="px-4 py-2 border rounded bg-blue-500 mt-6 w-fit min-w-[127.3px] min-h-[40.6px] text-white font-semibold" onClick={handleSubmit}>{
+							loading?(<Loading />):("Signup Now!")
+						}</button>
 					</form>
 
 					<p className="text-base mt-3">Already have an account? <span><Link to="/signin" className="underline">SignIn Here</Link></span></p>

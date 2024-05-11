@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import {toast} from 'react-hot-toast'
+import Loading from "./Laoding"
+import {useSelector, useDispatch} from 'react-redux'
+import { startLoading, stopLoading } from "../redux/slices/userSlice"
 
 const Basic = () => {
 
@@ -12,6 +15,10 @@ const Basic = () => {
 		{ codingTitle: "", codingLink: "" },
 		{ codingTitle: "", codingLink: "" }
 	])
+	const { loading } = useSelector((state)=>{
+		return state.user
+	})
+	const dispatch = useDispatch()
 
 	const handleInput = (e) => {
 		setBasicDetail((prev) => ({
@@ -31,6 +38,7 @@ const Basic = () => {
 	const handleSubmit = async (e)=>{
 		e.preventDefault();
 
+		dispatch(startLoading())
 		try{
 			const res = await fetch(`${import.meta.env.VITE_URL}/api/set/basic`, {
 				method: "PUT",
@@ -56,6 +64,7 @@ const Basic = () => {
 		}catch(e){
 			toast.error(e.message)
 		}
+		dispatch(stopLoading())
 	}
 
 	return (
@@ -83,7 +92,9 @@ const Basic = () => {
 						)
 					})
 				}
-				<button className="px-4 py-1 mt-4 w-fit bg-blue-500 text-lg text-white font-semibold rounded focus:outline-none" onClick={handleSubmit}>Submit</button>
+				<button className="px-4 py-1 mt-4 w-fit min-w-[90.3px] min-h-[36px] bg-blue-500 text-lg text-white font-semibold rounded focus:outline-none" onClick={handleSubmit}>{
+					loading? (<Loading />):("Submit")
+				}</button>
 			</form>
 		</div>
 	)

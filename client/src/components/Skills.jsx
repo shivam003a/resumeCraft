@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
+import Loading from "./Laoding"
+import { useSelector, useDispatch } from 'react-redux'
+import { startLoading, stopLoading } from "../redux/slices/userSlice"
 
 const Skills = () => {
 
 	const [skills, setSkills] = useState("");
+	const { loading } = useSelector((state) => {
+		return state.user
+	})
+	const dispatch = useDispatch()
 
 	const handleInput = (e) => {
 		setSkills(e.target.value)
@@ -11,13 +18,14 @@ const Skills = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		dispatch(startLoading())
 
 		if (!skills) {
 			toast.success("skills are empty")
 		}
 		else {
 			let skillsArray = skills.split(",");
-			skillsArray =skillsArray.map((skill)=>{
+			skillsArray = skillsArray.map((skill) => {
 				return skill.trim()
 			})
 
@@ -45,8 +53,8 @@ const Skills = () => {
 			} catch (e) {
 				toast.error(e.message)
 			}
-
 		}
+		dispatch(stopLoading())
 	}
 
 	return (
@@ -56,7 +64,9 @@ const Skills = () => {
 					<label htmlFor='skills' className="text-md">Skills</label>
 					<input type="text" name='skills' id='skills' className="px-4 py-2 border border-black rounded focus:outline-none" placeholder='enter skills seperated by commas, maximum 12 skills' value={skills} onChange={handleInput} />
 				</div>
-				<button className="px-4 py-1 mt-4 w-fit bg-blue-500 text-lg text-white font-semibold rounded focus:outline-none" onClick={handleSubmit}>Submit</button>
+				<button className="px-4 py-1 mt-4 w-fit min-w-[90.3px] min-h-[36px] bg-blue-500 text-lg text-white font-semibold rounded focus:outline-none" onClick={handleSubmit}>{
+					loading ? (<Loading />) : ("Submit")
+				}</button>
 			</form>
 		</div>
 	)
