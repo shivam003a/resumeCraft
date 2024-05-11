@@ -82,7 +82,8 @@ exports.signin = async(req, res) => {
         res.cookie("resumeToken", jwtToken, {
             expires: new Date(Date.now() + 604800000),
             httpOnly: true,
-            secure: true
+            secure: true,
+            sameSite: 'none'
         })
 
         const data = isEmailExist.toObject();
