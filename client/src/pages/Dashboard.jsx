@@ -19,7 +19,7 @@ const Dashboard = () => {
 
     const [currentPage, setCurrentPage] = useState("basic")
     const [pdfData, setPdfData] = useState(null)
-    const { loading } = useSelector((state) => {
+    const { loading, logged } = useSelector((state) => {
         return state.user
     })
     const dispatch = useDispatch()
@@ -83,37 +83,43 @@ const Dashboard = () => {
 
 
     return (
-        <div className="flex flex-col lg:flex-row gap-3 justify-between max-w-[1200px] mx-auto w-full px-4 py-8">
-            <div className="flex flex-col gap-2 w-full lg:w-[50%]">
-                <div className="flex overflow-x-auto">
-                    <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'basic' ? 'active' : ''}`} onClick={handleSection}>Basic</div>
-                    <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'education' ? 'active' : ''}`} onClick={handleSection}>Education</div>
-                    <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'skills' ? 'active' : ''}`} onClick={handleSection}>Skills</div>
-                    <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'projects' ? 'active' : ''}`} onClick={handleSection}>Projects</div>
-                    <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'experience' ? 'active' : ''}`} onClick={handleSection}>Experience</div>
-                    <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'certificates' ? 'active' : ''}`} onClick={handleSection}>Certificates</div>
-                </div>
-                <div className="w-full h-auto">
-                    {
-                        components[currentPage]
-                    }
-                </div>
-            </div>
-            <div className="w-full lg:w-[50%] flex flex-col gap-2 items-end overflow-hidden">
-                <button onClick={downloadPdf} className="px-4 py-2 bg-blue-500 w-fit rounded font-semibold text-white">Download</button>
-                {
-                    loading ? (<Loading />) : (
-                        <div className="w-full border">
+        <>
+            {
+                logged ? (
+                    <div className="flex flex-col lg:flex-row gap-3 justify-between max-w-[1200px] mx-auto w-full px-4 py-8">
+                        <div className="flex flex-col gap-2 w-full lg:w-[50%]">
+                            <div className="flex overflow-x-auto">
+                                <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'basic' ? 'active' : ''}`} onClick={handleSection}>Basic</div>
+                                <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'education' ? 'active' : ''}`} onClick={handleSection}>Education</div>
+                                <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'skills' ? 'active' : ''}`} onClick={handleSection}>Skills</div>
+                                <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'projects' ? 'active' : ''}`} onClick={handleSection}>Projects</div>
+                                <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'experience' ? 'active' : ''}`} onClick={handleSection}>Experience</div>
+                                <div className={`px-4 py-2 border cursor-pointer ${currentPage === 'certificates' ? 'active' : ''}`} onClick={handleSection}>Certificates</div>
+                            </div>
+                            <div className="w-full h-auto">
+                                {
+                                    components[currentPage]
+                                }
+                            </div>
+                        </div>
+                        <div className="w-full lg:w-[50%] flex flex-col gap-2 items-end overflow-hidden">
+                            <button onClick={downloadPdf} className="px-4 py-2 bg-blue-500 w-fit rounded font-semibold text-white">Download</button>
                             {
-                                pdfData && <Document file={pdfData} >
-                                    <Page pageNumber={1} renderAnnotationLayer={false} renderTextLayer={false} />
-                                </Document>
+                                loading ? (<Loading />) : (
+                                    <div className="w-full border">
+                                        {
+                                            pdfData && <Document file={pdfData} >
+                                                <Page pageNumber={1} renderAnnotationLayer={false} renderTextLayer={false} />
+                                            </Document>
+                                        }
+                                    </div>
+                                )
                             }
                         </div>
-                    )
-                }
-            </div>
-        </div>
+                    </div>
+                ) : (<div className="flex flex-col lg:flex-row gap-3 justify-between max-w-[1200px] mx-auto w-full px-4 py-8">SignIn to Access</div>)
+            }
+        </>
     )
 }
 

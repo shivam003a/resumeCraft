@@ -14,10 +14,11 @@ function App() {
       <div className='w-full h-auto box-border'>
         <Navbar />
         <Routes>
-          <Route path={'/'} element={<Home />} />
+          <Route index element={<Home />}/>
           <Route path={'/signup'} element={<Signup />} />
           <Route path={'/signin'} element={<Signin />} />
           <Route path={'/dashboard'} element={<Dashboard />} />
+          <Route path={'*'} element={<Signin />} />
         </Routes>
         <Footer />
       </div>
