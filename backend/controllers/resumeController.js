@@ -183,6 +183,10 @@ const resume = async (req, res) => {
             }
             else aY += 14;
         }
+
+        if(!tempY){
+            tempY = doc.y
+        }
         
         doc.moveTo(doc.page.margins.left, tempY + 3)
         .lineTo(doc.page.width - doc.page.margins.right, tempY + 3)
