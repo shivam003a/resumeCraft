@@ -79,7 +79,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         getPdf()
-    }, [currentPage])
+    }, [])
 
 
     return (
