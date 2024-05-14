@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast"
 import Loading from "./Laoding"
 import { useSelector, useDispatch } from 'react-redux'
 import { startLoading, stopLoading } from "../redux/slices/userSlice"
+import { setDetails } from '../redux/slices/resumeSlice'
 
 const Projects = () => {
 
@@ -64,6 +65,7 @@ const Projects = () => {
 
 			if (res.status === 200) {
 				toast.success(data.msg)
+				dispatch(setDetails(data))
 			}
 			else {
 				throw new Error(data.msg)

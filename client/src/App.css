@@ -1,3 +1,4 @@
+/* for hero section resume animation | <Hero /> */
 @keyframes slide {
     0%{
         top: 0;
@@ -11,11 +12,13 @@
     animation: slide 15s infinite linear;
 }
 
+/* for navlink active class */
 .active{
     background-color: #3b82f6;
     color: white;
 }
 
+/* loading animation in buttons */
 .loadingAnimation{
     animation: loading 1s infinite linear both;
     width: 20px;
@@ -33,3 +36,6 @@
         transform: rotateZ(360deg);
     }
 }
+
+
+/* for the navigation bar | <Navbar /> */

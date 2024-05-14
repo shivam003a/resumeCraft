@@ -11,6 +11,7 @@ import { toast } from 'react-hot-toast'
 import Loading from "../components/Laoding"
 import { useSelector, useDispatch } from 'react-redux'
 import { startLoading, stopLoading } from "../redux/slices/userSlice"
+import { useNavigate } from 'react-router-dom'
 
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js"
 
@@ -22,7 +23,11 @@ const Dashboard = () => {
     const { loading, logged } = useSelector((state) => {
         return state.user
     })
+    const { body } = useSelector((state) => {
+        return state.resume
+    })
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const components = {
         basic: <Basic />,
@@ -79,7 +84,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         getPdf()
-    }, [])
+    }, [body])
 
 
     return (
@@ -104,20 +109,16 @@ const Dashboard = () => {
                         </div>
                         <div className="w-full lg:w-[50%] flex flex-col gap-2 items-end overflow-hidden">
                             <button onClick={downloadPdf} className="px-4 py-2 bg-blue-500 w-fit rounded font-semibold text-white">Download</button>
-                            {
-                                loading ? (<Loading />) : (
-                                    <div className="w-full border">
-                                        {
-                                            pdfData && <Document file={pdfData} >
-                                                <Page pageNumber={1} renderAnnotationLayer={false} renderTextLayer={false} />
-                                            </Document>
-                                        }
-                                    </div>
-                                )
-                            }
+                            <div className="w-full border hidden sm:block">
+                                {
+                                    pdfData && <Document file={pdfData} >
+                                        <Page pageNumber={1} renderAnnotationLayer={false} renderTextLayer={false} />
+                                    </Document>
+                                }
+                            </div>
                         </div>
                     </div>
-                ) : (<div className="flex flex-col lg:flex-row gap-3 justify-between max-w-[1200px] mx-auto w-full px-4 py-8">SignIn to Access</div>)
+                ) : (navigate('/signin'))
             }
         </>
     )

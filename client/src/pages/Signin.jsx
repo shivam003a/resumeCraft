@@ -66,7 +66,12 @@ const Signin = () => {
 	return (
 		<div className="max-w-[1200px] mx-auto px-4 py-8">
 			{
-				logged ? ("Logout to Access") : (
+				logged ? (
+					<div>
+						<div className="text-lg">Already logged in!</div>
+						<button className="bg-blue-500 text-white rounded px-4 py-2 focus:outline-none mt-4 focus:bottom-0" onClick={(e)=>(navigate('/dashboard'))}>Go to Dashboard</button>
+					</div>
+				) : (
 					<div className="flex flex-col gap-4 shadow-lg bg-slate-100 rounded max-w-[90%] sm:max-w-[50%] lg:max-w-[35%] py-16 px-4 mx-auto">
 						<h3 className="text-2xl mb-6">Sign In to <span className="text-blue-500">ResumeCraft</span></h3>
 						<form className="flex flex-col gap-3">
