@@ -14,8 +14,8 @@ const Ats = () => {
                 <div className="h-1 w-16 bg-blue-500"></div>
             </div>
             <div className="flex flex-col items-center sm:flex-row gap-8 w-full justify-center mt-[60px]">
-                <img src={mployee} className="w-60 h-28 grayscale cursor-pointer" onClick={(e)=>openSite("https://www.mployee.me/")}/>
-                <img src={resumeworded} className="w-60 h-28 grayscale cursor-pointer" onClick={(e)=>openSite("https://resumeworded.com/")}/>
+                <img src={mployee} className="w-60 h-28 grayscale cursor-pointer hover:grayscale-0" onClick={(e)=>openSite("https://www.mployee.me/")}/>
+                <img src={resumeworded} className="w-60 h-28 grayscale cursor-pointer hover:grayscale-0" onClick={(e)=>openSite("https://resumeworded.com/")}/>
             </div>
         </div>
     )
