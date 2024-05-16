@@ -31,6 +31,12 @@ app.use(cookieParser({
 }));
 // TODO: CORS
 
+app.get("/", (req, res)=>{
+    res.status(200).json({
+        body: "testing home"
+    })
+})
+
 
 // routes
 app.use("/api/auth", authRoutes);
