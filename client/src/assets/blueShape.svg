@@ -1,4 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="-2.072 421.589 502.072 78.238" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
-  <path d="M 421.175 421.589 L 500 499.827 L -2.072 499.827 L 421.175 421.589 Z" style="fill: rgb(59, 130, 246); paint-order: fill; stroke: rgba(0, 0, 0, 0); stroke-width: 0px;" transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, 0, 0)" bx:shape="triangle -2.072 421.589 502.072 78.238 0.843 0 1@8a108a41"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com" viewBox="-2.072 421.589 502.072 78.238"><path d="M 421.175 421.589 L 500 499.827 L -2.072 499.827 L 421.175 421.589 Z" style="fill:#3b82f6;paint-order:fill;stroke:transparent;stroke-width:0" transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, 0, 0)" bx:shape="triangle -2.072 421.589 502.072 78.238 0.843 0 1@8a108a41"/></svg>
